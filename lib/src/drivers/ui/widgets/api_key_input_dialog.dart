@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sylvinho/src/drivers/ui/domain/ConfigurationViewModel.dart';
+import 'package:sylvinho/src/drivers/ui/domain/configuration_view_model.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/bot_button.dart';
 
 class APIKeyInputDialog extends StatelessWidget {
