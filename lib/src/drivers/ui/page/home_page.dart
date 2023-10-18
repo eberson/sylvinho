@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:sylvinho/src/drivers/ui/widgets/bot_button.dart';
 
 class HomePage extends StatefulWidget implements BottomAccessScreen {
   const HomePage({super.key});
@@ -33,15 +32,10 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 12),
-                    child: Expanded(
-                      child: Image.asset(
-                        'assets/images/sylvinho.jpeg',
-                        height: 300,
-                        fit: kIsWeb ? BoxFit.fitHeight : BoxFit.fitWidth,
-                      ),
-                    ),
+                  child: Image.asset(
+                    'assets/images/sylvinho.jpeg',
+                    height: 300,
+                    fit: kIsWeb ? BoxFit.fitHeight : BoxFit.fitWidth,
                   ),
                 ),
                 Container(
