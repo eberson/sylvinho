@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sylvinho/src/drivers/ui/domain/conversation_view_model.dart';
 import 'package:sylvinho/src/drivers/ui/mixin/speak_mixin.dart';
+import 'package:sylvinho/src/drivers/ui/widgets/text_chat_history.dart';
 
 typedef EnterTextCallback = void Function(String text);
 
@@ -33,11 +34,19 @@ class _TextChatViewState extends State<TextChatView> with Speaker {
     final theme = Theme.of(context);
     final viewModel = Provider.of<ConversationViewModel>(context);
 
+
+
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          const Expanded(
+            child: TextChatHistory(),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
           Row(
             children: [
               Expanded(
