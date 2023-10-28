@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sylvinho/src/drivers/ui/page/drawer_mixin.dart';
+import 'package:sylvinho/src/drivers/ui/mixin/drawer_mixin.dart';
 
 abstract class BottomAccessScreen {
 

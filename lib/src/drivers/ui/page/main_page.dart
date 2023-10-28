@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sylvinho/src/drivers/ui/page/app_bar_actions_mixin.dart';
-import 'package:sylvinho/src/drivers/ui/page/app_bar_leading_mixin.dart';
+import 'package:sylvinho/src/drivers/ui/mixin/app_bar_actions_mixin.dart';
+import 'package:sylvinho/src/drivers/ui/mixin/app_bar_leading_mixin.dart';
+import 'package:sylvinho/src/drivers/ui/mixin/drawer_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
 import 'package:sylvinho/src/drivers/ui/page/chat_page.dart';
-import 'package:sylvinho/src/drivers/ui/page/drawer_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/page/home_page.dart';
 
 double _drawerMaxWidth = 10;
