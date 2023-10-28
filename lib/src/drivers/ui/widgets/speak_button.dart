@@ -5,11 +5,13 @@ import 'package:speech_to_text/speech_to_text.dart';
 class SpeakButton extends StatefulWidget {
   final SpeechResultListener onSpeechResult;
   final VoidCallback onFinishTalking;
+  final bool allowInteraction;
 
   const SpeakButton({
     super.key,
     required this.onSpeechResult,
     required this.onFinishTalking,
+    required this.allowInteraction,
   });
 
   @override
@@ -48,37 +50,40 @@ class _SpeakButtonState extends State<SpeakButton> {
           height: _internalSize,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(_internalRadius),
-            child: GestureDetector(
-              onTapDown: (_) async {
-                if (!isListening) {
-                  final available = await _speechToText.initialize();
+            child: AbsorbPointer(
+              absorbing: !widget.allowInteraction,
+              child: GestureDetector(
+                onTapDown: (_) async {
+                  if (!isListening) {
+                    final available = await _speechToText.initialize();
 
-                  if (available) {
-                    setState(() {
-                      isListening = true;
+                    if (available) {
+                      setState(() {
+                        isListening = true;
 
-                      _speechToText.listen(
-                        onResult: widget.onSpeechResult,
-                        localeId: "pt_BR",
-                      );
-                    });
+                        _speechToText.listen(
+                          onResult: widget.onSpeechResult,
+                          localeId: "pt_BR",
+                        );
+                      });
+                    }
                   }
-                }
-              },
-              onTapUp: (_) {
-                setState(() {
-                  isListening = false;
-                });
+                },
+                onTapUp: (_) {
+                  setState(() {
+                    isListening = false;
+                  });
 
-                widget.onFinishTalking();
-                _speechToText.stop();
-              },
-              child: CircleAvatar(
-                radius: _internalRadius,
-                backgroundColor: theme.colorScheme.primary,
-                child: Icon(
-                  isListening ? Icons.mic : Icons.mic_none,
-                  color: Colors.white,
+                  widget.onFinishTalking();
+                  _speechToText.stop();
+                },
+                child: CircleAvatar(
+                  radius: _internalRadius,
+                  backgroundColor: theme.colorScheme.primary,
+                  child: Icon(
+                    isListening ? Icons.mic : Icons.mic_none,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

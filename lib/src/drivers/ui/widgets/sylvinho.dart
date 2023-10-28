@@ -4,10 +4,12 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Sylvinho extends StatefulWidget {
   final AnimationController controller;
+  final VoidCallback onAnimationLoaded;
 
   const Sylvinho({
     super.key,
     required this.controller,
+    required this.onAnimationLoaded,
   });
 
   @override
@@ -21,16 +23,6 @@ class _SylvinhoState extends State<Sylvinho> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    // widget.controller.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     widget.controller.reset();
-
-    //     Future.delayed(const Duration(seconds: 5), () {
-    //       widget.controller.forward();
-    //     });
-    //   }
-    // });
-
     _composition = AssetLottie('assets/lottie/sylvinho_talking.json').load();
   }
 
@@ -40,6 +32,8 @@ class _SylvinhoState extends State<Sylvinho> with TickerProviderStateMixin {
       future: _composition,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          widget.onAnimationLoaded();
+
           final composition = snapshot.data!;  
 
           widget.controller.duration = composition.duration; 

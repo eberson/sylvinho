@@ -52,7 +52,9 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Spea
   late final AnimationController _controller;
 
   late bool _speaking;
-  var text = "";
+  
+  var _animationLoading = true;
+  var _text = "";
 
   void onTextToSpeechCompletion() => setState(() {
     _speaking = false;
@@ -104,6 +106,15 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Spea
             Expanded(
               child: Sylvinho(
                 controller: _controller,
+                onAnimationLoaded: () {
+                  if (_animationLoading) {
+                    Future.delayed(const Duration(seconds: 2), () {
+                      setState(() {
+                        _animationLoading = false;
+                      });
+                    });
+                  }
+                },
               ),
             ),
             Container(
@@ -114,9 +125,10 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Spea
                 children: [
                   SpeakButton(
                     onSpeechResult: (result) => setState(() {
-                      text = result.recognizedWords;
+                      _text = result.recognizedWords;
                     }),
-                    onFinishTalking: () => viewModel.talk(text).then((value) => systemSpeak(value)),
+                    onFinishTalking: () => viewModel.talk(_text).then((value) => systemSpeak(value)),
+                    allowInteraction: !_animationLoading,
                   ),
                 ],
               ),
