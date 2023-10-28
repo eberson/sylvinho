@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-mixin AppBarActionsMixing {
-  List<Widget>? actions() => [];
+abstract mixin class AppBarActions {
+  List<Widget>? actions();
 }

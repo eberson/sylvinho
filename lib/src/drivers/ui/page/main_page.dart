@@ -41,8 +41,8 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sylvinho"),
-        leading: current is AppBarLeadingMixin ? (current as AppBarLeadingMixin).leading() : null,
-        actions: current is AppBarActionsMixing ? (current as AppBarActionsMixing).actions() : null,
+        leading: current is AppBarLeading ? (current as AppBarLeading).leading() : null,
+        actions: current is AppBarActions ? (current as AppBarActions).actions() : null,
       ),
       drawer: current is DrawerMixin ? (current as DrawerMixin).drawer() : null,
       body: current.screen(),

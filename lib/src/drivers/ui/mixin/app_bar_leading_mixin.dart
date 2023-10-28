@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-mixin AppBarLeadingMixin {
-  Widget? leading() => null;
+abstract mixin class AppBarLeading {
+  Widget? leading();
 }

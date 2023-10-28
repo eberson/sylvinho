@@ -4,7 +4,7 @@ import 'package:sylvinho/src/drivers/ui/mixin/app_bar_actions_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-class HomePage extends StatefulWidget with AppBarActionsMixing implements BottomAccessScreen {
+class HomePage extends StatefulWidget with AppBarActions implements BottomAccessScreen {
   const HomePage({super.key});
 
   @override

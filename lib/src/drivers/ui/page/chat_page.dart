@@ -11,7 +11,7 @@ import 'package:sylvinho/src/drivers/ui/widgets/conversation.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/speak_button.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/sylvinho.dart';
 
-class ChatPage extends StatefulWidget with DrawerMixin, AppBarLeadingMixin implements BottomAccessScreen {
+class ChatPage extends StatefulWidget with DrawerMixin, AppBarLeading implements BottomAccessScreen {
   const ChatPage({
     super.key,
   });
