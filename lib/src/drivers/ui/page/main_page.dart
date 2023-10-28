@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> {
     screens.add(const HomePage());
     screens.add(const ChatPage());
 
-    currentScreenIndex = 1;
+    currentScreenIndex = 0;
   }
 
   @override

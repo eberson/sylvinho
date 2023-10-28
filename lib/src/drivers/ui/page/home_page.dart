@@ -3,6 +3,7 @@ import 'package:sylvinho/src/drivers/ui/app.dart';
 import 'package:sylvinho/src/drivers/ui/mixin/app_bar_actions_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:sylvinho/src/drivers/ui/widgets/credit.dart';
 
 class HomePage extends StatefulWidget with AppBarActions implements BottomAccessScreen {
   const HomePage({super.key});
@@ -71,14 +72,8 @@ class _HomePageState extends State<HomePage> {
         ),
         Container(
           margin: const EdgeInsets.only(bottom: 10),
-          child: const Column(
-            children: [
-              Text("Créditos"),
-              Text("3H3 - Desenvolvimento de Sistemas"),
-              Text("Fulvio"),
-            ],
-          ),
-        )
+          child: const Credit(),
+        ),
       ],
     );
   }
