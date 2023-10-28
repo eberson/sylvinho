@@ -7,9 +7,9 @@ import 'package:sylvinho/src/drivers/ui/mixin/drawer_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/mixin/speak_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
 import 'package:sylvinho/src/drivers/ui/page/main_page.dart';
-import 'package:sylvinho/src/drivers/ui/widgets/text_chat.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/speak_button.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/sylvinho.dart';
+import 'package:sylvinho/src/drivers/ui/widgets/text_chat.dart';
 
 class ChatPage extends StatefulWidget with DrawerMixin, AppBarLeading implements BottomAccessScreen {
   const ChatPage({

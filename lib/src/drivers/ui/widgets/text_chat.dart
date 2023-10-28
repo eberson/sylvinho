@@ -34,8 +34,6 @@ class _TextChatViewState extends State<TextChatView> with Speaker {
     final theme = Theme.of(context);
     final viewModel = Provider.of<ConversationViewModel>(context);
 
-
-
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Column(

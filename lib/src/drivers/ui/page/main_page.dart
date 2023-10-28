@@ -36,7 +36,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final current = screens[currentScreenIndex];
 
-    _drawerMaxWidth = MediaQuery.of(context).size.width / 2;
+    _drawerMaxWidth = MediaQuery.of(context).size.width * .8;
 
     return Scaffold(
       appBar: AppBar(
