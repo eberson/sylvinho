@@ -2,24 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 import 'package:sylvinho/src/drivers/ui/domain/configuration_view_model.dart';
-import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/api_key_input_dialog.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/bot_button.dart';
 
-class ConfigPage extends StatefulWidget implements BottomAccessScreen {
+class ConfigPage extends StatefulWidget {
   const ConfigPage({super.key});
 
   @override
   State<ConfigPage> createState() => _ConfigPageState();
-
-  @override
-  BottomNavigationBarItem navigationBarItem() => const BottomNavigationBarItem(
-        icon: Icon(Icons.settings),
-        label: "Configurações",
-      );
-
-  @override
-  Widget screen() => this;
 }
 
 class _ConfigPageState extends State<ConfigPage> {
