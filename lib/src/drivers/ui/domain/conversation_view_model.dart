@@ -15,16 +15,21 @@ class ConversationViewModel extends ChangeNotifier {
   late Message lastUserMessage;
   late Message lastAssistantMessage;
 
+  bool shouldDoLecture = false;
+
+  void doLecture() {
+    shouldDoLecture = true;
+  }
+
+  void doneLecture() {
+    shouldDoLecture = false;
+  }
+
   Future<String> talk(String content) async {
     _storeUserMessage(content);
     final response = await _callAssistant(content);
 
     return response.content;
-  }
-
-  void addMessage(Message message) {
-    messages.add(message);
-    notifyListeners();
   }
 
   void _storeUserMessage(String content) {

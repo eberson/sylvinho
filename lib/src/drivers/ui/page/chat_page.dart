@@ -10,6 +10,7 @@ import 'package:sylvinho/src/drivers/ui/page/main_page.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/speak_button.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/sylvinho.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/text_chat.dart';
+import 'package:sylvinho/src/enterprise/entities/lecture.dart';
 
 class ChatPage extends StatefulWidget with DrawerMixin, AppBarLeading implements BottomAccessScreen {
   const ChatPage({
@@ -53,14 +54,24 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Spea
 
   late bool _speaking;
   
-  var _animationLoading = true;
+  var _allowInteraction = false;
   var _text = "";
 
   void onTextToSpeechCompletion() => setState(() {
+    final viewModel = Provider.of<ConversationViewModel>(context, listen: false);
+
+    if (viewModel.shouldDoLecture) {
+      viewModel.doneLecture();
+    }
+
     _speaking = false;
 
     _controller.stop();
     _controller.reset();
+
+    setState(() {
+      _allowInteraction = true;
+    });
   });
 
   void initAnimationController() {
@@ -79,10 +90,23 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Spea
   Future<void> systemSpeak(String content) async {
     setState(() {
       _speaking = true;
+      _allowInteraction = false;
     });
 
     _controller.forward();
     await speaker.speak(content);
+  }
+
+  void doLectureOrWaitInteraction() {
+    final viewModel = Provider.of<ConversationViewModel>(context, listen: false);
+
+    if (viewModel.shouldDoLecture) {
+      systemSpeak(lecture);
+    } else {
+      setState(() {
+        _allowInteraction = true;
+      });
+    }
   }
 
   @override
@@ -101,18 +125,13 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Spea
       padding: const EdgeInsets.all(12),
       child: Center(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
               child: Sylvinho(
                 controller: _controller,
                 onAnimationLoaded: () {
-                  if (_animationLoading) {
-                    Future.delayed(const Duration(seconds: 2), () {
-                      setState(() {
-                        _animationLoading = false;
-                      });
-                    });
+                  if (!_allowInteraction) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) => doLectureOrWaitInteraction());
                   }
                 },
               ),
@@ -128,7 +147,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Spea
                       _text = result.recognizedWords;
                     }),
                     onFinishTalking: () => viewModel.talk(_text).then((value) => systemSpeak(value)),
-                    allowInteraction: !_animationLoading,
+                    allowInteraction: _allowInteraction,
                   ),
                 ],
               ),

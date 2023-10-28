@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sylvinho/src/drivers/ui/mixin/drawer_mixin.dart';
+
+typedef MoveToTab = void Function(int index);
 
 abstract class BottomAccessScreen {
 
   BottomNavigationBarItem navigationBarItem();
 
   Widget screen();
-
 }

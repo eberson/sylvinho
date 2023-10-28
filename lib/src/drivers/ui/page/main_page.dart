@@ -26,10 +26,19 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
 
-    screens.add(const HomePage());
+    screens.add(HomePage(
+      moveToTab: moveToPage,
+    ));
+
     screens.add(const ChatPage());
 
     currentScreenIndex = 0;
+  }
+
+  void moveToPage(int index) {
+    setState(() {
+      currentScreenIndex = index;
+    });
   }
 
   @override
