@@ -70,7 +70,9 @@ class _HomePageState extends State<HomePage> {
                       width: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        widget.moveToTab(1);
+                      },
                       child: const Text("Iniciar Conversa"),
                     ),
                   ],
