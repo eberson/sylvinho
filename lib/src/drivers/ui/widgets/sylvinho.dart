@@ -19,6 +19,8 @@ class Sylvinho extends StatefulWidget {
 class _SylvinhoState extends State<Sylvinho> with TickerProviderStateMixin {
   late final Future<LottieComposition> _composition;
 
+  bool loaded = false;
+
   @override
   void initState() {
     super.initState();
@@ -32,11 +34,18 @@ class _SylvinhoState extends State<Sylvinho> with TickerProviderStateMixin {
       future: _composition,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          widget.onAnimationLoaded();
+          final composition = snapshot.data!;
 
-          final composition = snapshot.data!;  
+          if (!loaded) {
+            widget.onAnimationLoaded();
+            widget.controller.duration = composition.duration;
 
-          widget.controller.duration = composition.duration; 
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              setState(() {
+                loaded = true;
+              });
+            });
+          }
           
           return Lottie(
             composition: composition,
