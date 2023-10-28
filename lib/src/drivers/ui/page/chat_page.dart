@@ -1,13 +1,13 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 import 'package:sylvinho/src/drivers/ui/domain/conversation_view_model.dart';
 import 'package:sylvinho/src/drivers/ui/mixin/app_bar_leading_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/mixin/drawer_mixin.dart';
+import 'package:sylvinho/src/drivers/ui/mixin/speak_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
 import 'package:sylvinho/src/drivers/ui/page/main_page.dart';
-import 'package:sylvinho/src/drivers/ui/widgets/conversation.dart';
+import 'package:sylvinho/src/drivers/ui/widgets/text_chat.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/speak_button.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/sylvinho.dart';
 
@@ -31,7 +31,7 @@ class ChatPage extends StatefulWidget with DrawerMixin, AppBarLeading implements
   @override
   Widget? drawer() => Drawer(
         width: drawerMaxWidth,
-        child: const ConversationView(),
+        child: const TextChatView(),
       );
 
   @override
@@ -48,34 +48,18 @@ class ChatPage extends StatefulWidget with DrawerMixin, AppBarLeading implements
 
 typedef TTSCallback = EnterTextCallback Function(FlutterTts tts);
 
-class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
-  final _tts = FlutterTts();
-
+class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Speaker {
   late final AnimationController _controller;
 
   late bool _speaking;
   var text = "";
 
-  Future<void> initTextToSpeech() async {
+  void onTextToSpeechCompletion() => setState(() {
     _speaking = false;
 
-    if (!kIsWeb) {
-      await _tts.setSharedInstance(true);
-    }
-
-    await _tts.setSpeechRate(1);
-    await _tts.setLanguage("pt-BR");
-    await _tts.setVolume(1.0);
-
-    _tts.setCompletionHandler(
-      () => setState(() {
-        _speaking = false;
-
-        _controller.stop();
-        _controller.reset();
-      }),
-    );
-  }
+    _controller.stop();
+    _controller.reset();
+  });
 
   void initAnimationController() {
     _controller = AnimationController(vsync: this);
@@ -96,7 +80,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     });
 
     _controller.forward();
-    await _tts.speak(content);
+    await speaker.speak(content);
   }
 
   @override
@@ -104,7 +88,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     super.initState();
 
     initAnimationController();
-    initTextToSpeech();
+    withCompletionHandler(onTextToSpeechCompletion).initSpeaker();
   }
 
   @override

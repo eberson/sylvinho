@@ -1,48 +1,36 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 import 'package:sylvinho/src/drivers/ui/domain/conversation_view_model.dart';
+import 'package:sylvinho/src/drivers/ui/mixin/speak_mixin.dart';
 
 typedef EnterTextCallback = void Function(String text);
 
-class ConversationView extends StatefulWidget {
-  const ConversationView({super.key});
+class TextChatView extends StatefulWidget {
+  const TextChatView({super.key});
 
   @override
-  State<ConversationView> createState() => _ConversationViewState();
+  State<TextChatView> createState() => _TextChatViewState();
 }
 
-class _ConversationViewState extends State<ConversationView> {
+class _TextChatViewState extends State<TextChatView> with Speaker {
   final textController = TextEditingController();
-
-  final _tts = FlutterTts();
 
   var text = "";
 
-  Future<void> initTextToSpeech() async {
-    if (!kIsWeb) {
-      await _tts.setSharedInstance(true);
-    }
-
-    await _tts.setSpeechRate(1);
-    await _tts.setLanguage("pt-BR");
-    await _tts.setVolume(1.0);
-  }
-
   Future<void> systemSpeak(String content) async {
-    await _tts.speak(content);
+    await speaker.speak(content);
   }
 
   @override
   void initState() {
     super.initState();
 
-    initTextToSpeech();
+    initSpeaker();
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final viewModel = Provider.of<ConversationViewModel>(context);
 
     return Padding(
@@ -64,11 +52,14 @@ class _ConversationViewState extends State<ConversationView> {
                   onPressed: () async {
                     systemSpeak(await viewModel.talk(textController.text));
                   },
-                  icon: const Icon(Icons.send),
+                  icon: Icon(
+                    Icons.send,
+                    color: theme.colorScheme.primary,
+                  ),
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
