@@ -28,6 +28,8 @@ class _SpeakButtonState extends State<SpeakButton> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       width: _externalSize,
@@ -37,7 +39,7 @@ class _SpeakButtonState extends State<SpeakButton> {
         endRadius: _externalRadius,
         animate: isListening,
         duration: const Duration(seconds: 2),
-        glowColor: Colors.red,
+        glowColor: theme.colorScheme.primary,
         repeat: true,
         repeatPauseDuration: const Duration(milliseconds: 100),
         showTwoGlows: true,
@@ -73,7 +75,7 @@ class _SpeakButtonState extends State<SpeakButton> {
               },
               child: CircleAvatar(
                 radius: _internalRadius,
-                backgroundColor: Colors.red,
+                backgroundColor: theme.colorScheme.primary,
                 child: Icon(
                   isListening ? Icons.mic : Icons.mic_none,
                   color: Colors.white,

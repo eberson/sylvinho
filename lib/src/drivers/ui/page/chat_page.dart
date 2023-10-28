@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 import 'package:sylvinho/src/drivers/ui/domain/conversation_view_model.dart';
+import 'package:sylvinho/src/drivers/ui/page/app_bar_leading_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
+import 'package:sylvinho/src/drivers/ui/page/drawer_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/page/main_page.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/conversation.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/speak_button.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/sylvinho.dart';
 
-class ChatPage extends StatefulWidget implements BottomAccessScreen {
+class ChatPage extends StatefulWidget with DrawerMixin, AppBarLeadingMixin implements BottomAccessScreen {
   const ChatPage({
     super.key,
   });
@@ -28,9 +30,20 @@ class ChatPage extends StatefulWidget implements BottomAccessScreen {
 
   @override
   Widget? drawer() => Drawer(
-    width: drawerMaxWidth,
-    child: const ConversationView(),
-  );
+        width: drawerMaxWidth,
+        child: const ConversationView(),
+      );
+
+  @override
+  Widget? leading() => Builder(
+        builder: (BuildContext context) => IconButton(
+            icon: const Icon(Icons.keyboard),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            tooltip: "Entrar no modo conversação por texto",
+          ),
+      );
 }
 
 typedef TTSCallback = EnterTextCallback Function(FlutterTts tts);

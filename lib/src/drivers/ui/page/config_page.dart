@@ -20,9 +20,6 @@ class ConfigPage extends StatefulWidget implements BottomAccessScreen {
 
   @override
   Widget screen() => this;
-
-  @override
-  Widget? drawer() => null;
 }
 
 class _ConfigPageState extends State<ConfigPage> {
@@ -31,15 +28,17 @@ class _ConfigPageState extends State<ConfigPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        const SliverAppBar(
-          title: Text("Configurações"),
-        ),
-        SliverToBoxAdapter(
-          child: body(context),
-        ),
-      ],
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            title: Text("Configurações"),
+          ),
+          SliverToBoxAdapter(
+            child: body(context),
+          ),
+        ],
+      ),
     );
   }
 

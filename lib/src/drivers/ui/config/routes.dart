@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sylvinho/src/drivers/ui/page/config_page.dart';
 import 'package:sylvinho/src/drivers/ui/page/main_page.dart';
 
 class Routes {
@@ -8,6 +9,7 @@ class Routes {
 
   static Map<String, WidgetBuilder> get routes => {
     "/": (context) => const MainPage(),
+    "/config": (context) => const ConfigPage(),
   };
 
 }

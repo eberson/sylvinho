@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sylvinho/src/drivers/ui/app.dart';
+import 'package:sylvinho/src/drivers/ui/page/app_bar_actions_mixin.dart';
 import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-class HomePage extends StatefulWidget implements BottomAccessScreen {
+class HomePage extends StatefulWidget with AppBarActionsMixing implements BottomAccessScreen {
   const HomePage({super.key});
 
   @override
@@ -18,7 +20,14 @@ class HomePage extends StatefulWidget implements BottomAccessScreen {
   Widget screen() => this;
 
   @override
-  Widget? drawer() => null;
+  List<Widget>? actions() => <Widget>[
+        IconButton(
+          onPressed: () => navigatorKey.currentState?.pushNamed("/config"),
+          icon: const Icon(
+            Icons.settings,
+          ),
+        ),
+      ];
 }
 
 class _HomePageState extends State<HomePage> {

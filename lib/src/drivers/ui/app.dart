@@ -5,6 +5,8 @@ import 'package:sylvinho/src/drivers/ui/config/themes.dart';
 import 'package:sylvinho/src/drivers/ui/domain/configuration_view_model.dart';
 import 'package:sylvinho/src/drivers/ui/domain/conversation_view_model.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class Application extends StatelessWidget {
   const Application({super.key});
 
@@ -20,6 +22,8 @@ class Application extends StatelessWidget {
         theme: Themes.defaultTheme,
         initialRoute: Routes.initial,
         routes: Routes.routes,
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
       ),
     );
   }
