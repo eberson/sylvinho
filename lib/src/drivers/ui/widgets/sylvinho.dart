@@ -47,10 +47,12 @@ class _SylvinhoState extends State<Sylvinho> with TickerProviderStateMixin {
             });
           }
           
-          return Lottie(
-            composition: composition,
-            fit: kIsWeb ? BoxFit.fitWidth : BoxFit.fitHeight,
-            controller: widget.controller,
+          return Center(
+            child: Lottie(
+              composition: composition,
+              fit: kIsWeb ? BoxFit.fitWidth : BoxFit.fitHeight,
+              controller: widget.controller,
+            ),
           );
         }
 
