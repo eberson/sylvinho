@@ -6,4 +6,6 @@ abstract class BottomAccessScreen {
 
   Widget screen();
 
+  Widget? drawer();
+
 }

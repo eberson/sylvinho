@@ -16,63 +16,61 @@ class HomePage extends StatefulWidget implements BottomAccessScreen {
 
   @override
   Widget screen() => this;
+
+  @override
+  Widget? drawer() => null;
 }
 
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/sylvinho.jpeg',
-                    height: 300,
-                    fit: kIsWeb ? BoxFit.fitHeight : BoxFit.fitWidth,
-                  ),
+    return Column(
+      children: [
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Image.asset(
+                  'assets/images/sylvinho.jpeg',
+                  height: 300,
+                  fit: kIsWeb ? BoxFit.fitHeight : BoxFit.fitWidth,
                 ),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: (){}, 
-                        child: const Text("Ouvir Explicação"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      ElevatedButton(
-                        onPressed: (){}, 
-                        child: const Text("Iniciar Conversa"),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text("Ouvir Explicação"),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text("Iniciar Conversa"),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            child: const Column(
-              children: [
-                Text("Créditos"),
-                Text("3H3 - Desenvolvimento de Sistemas"),
-                Text("Fulvio"),
-              ],
-            ),
-          )
-        ],
-      ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          child: const Column(
+            children: [
+              Text("Créditos"),
+              Text("3H3 - Desenvolvimento de Sistemas"),
+              Text("Fulvio"),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

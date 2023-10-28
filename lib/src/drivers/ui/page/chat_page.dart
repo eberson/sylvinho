@@ -1,16 +1,21 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:provider/provider.dart';
+import 'package:sylvinho/src/drivers/ui/domain/conversation_view_model.dart';
 import 'package:sylvinho/src/drivers/ui/page/bottom_access_screen.dart';
-import 'package:sylvinho/src/drivers/ui/widgets/bot_button.dart';
+import 'package:sylvinho/src/drivers/ui/page/main_page.dart';
+import 'package:sylvinho/src/drivers/ui/widgets/conversation.dart';
+import 'package:sylvinho/src/drivers/ui/widgets/speak_button.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/sylvinho.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:sylvinho/src/enterprise/entities/lecture.dart';
 
-class BotPage extends StatefulWidget implements BottomAccessScreen {
-  const BotPage({super.key});
+class ChatPage extends StatefulWidget implements BottomAccessScreen {
+  const ChatPage({
+    super.key,
+  });
 
   @override
-  State<BotPage> createState() => _BotPageState();
+  State<ChatPage> createState() => _ChatPageState();
 
   @override
   BottomNavigationBarItem navigationBarItem() => const BottomNavigationBarItem(
@@ -20,14 +25,23 @@ class BotPage extends StatefulWidget implements BottomAccessScreen {
 
   @override
   Widget screen() => this;
+
+  @override
+  Widget? drawer() => Drawer(
+    width: drawerMaxWidth,
+    child: const ConversationView(),
+  );
 }
 
-class _BotPageState extends State<BotPage> with TickerProviderStateMixin {
+typedef TTSCallback = EnterTextCallback Function(FlutterTts tts);
+
+class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   final _tts = FlutterTts();
 
   late final AnimationController _controller;
 
   late bool _speaking;
+  var text = "";
 
   Future<void> initTextToSpeech() async {
     _speaking = false;
@@ -35,17 +49,19 @@ class _BotPageState extends State<BotPage> with TickerProviderStateMixin {
     if (!kIsWeb) {
       await _tts.setSharedInstance(true);
     }
-    
+
     await _tts.setSpeechRate(1);
+    await _tts.setLanguage("pt-BR");
+    await _tts.setVolume(1.0);
 
     _tts.setCompletionHandler(
       () => setState(() {
         _speaking = false;
+
+        _controller.stop();
         _controller.reset();
       }),
     );
-
-    setState(() {});
   }
 
   void initAnimationController() {
@@ -80,6 +96,8 @@ class _BotPageState extends State<BotPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<ConversationViewModel>(context);
+
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Center(
@@ -91,11 +109,20 @@ class _BotPageState extends State<BotPage> with TickerProviderStateMixin {
                 controller: _controller,
               ),
             ),
-            BotButton(
-              text: "Escreva sua pergunta",
-              onPressed: () {
-                systemSpeak(lecture);
-              },
+            Container(
+              margin: const EdgeInsets.only(top: 20),
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SpeakButton(
+                    onSpeechResult: (result) => setState(() {
+                      text = result.recognizedWords;
+                    }),
+                    onFinishTalking: () => viewModel.talk(text).then((value) => systemSpeak(value)),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

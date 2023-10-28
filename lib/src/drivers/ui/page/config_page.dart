@@ -20,6 +20,9 @@ class ConfigPage extends StatefulWidget implements BottomAccessScreen {
 
   @override
   Widget screen() => this;
+
+  @override
+  Widget? drawer() => null;
 }
 
 class _ConfigPageState extends State<ConfigPage> {
