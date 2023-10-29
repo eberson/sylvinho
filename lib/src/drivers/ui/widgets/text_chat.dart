@@ -39,33 +39,33 @@ class _TextChatViewState extends State<TextChatView> with Speaker {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const Expanded(
-            child: TextChatHistory(),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: textController,
-                  decoration: const InputDecoration(labelText: "Faça uma pergunta ou escreva algo"),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: IconButton(
-                  onPressed: () async {
-                    systemSpeak(await viewModel.talk(textController.text));
-                  },
-                  icon: Icon(
-                    Icons.send,
-                    color: theme.colorScheme.primary,
+          Container(
+            margin: const EdgeInsets.only(top: 12, bottom: 15),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: textController,
+                    decoration: const InputDecoration(labelText: "Faça uma pergunta ou escreva algo"),
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: IconButton(
+                    onPressed: () async {
+                      systemSpeak(await viewModel.talk(textController.text));
+                    },
+                    icon: Icon(
+                      Icons.send,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Expanded(
+            child: TextChatHistory(),
           ),
         ],
       ),

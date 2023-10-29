@@ -69,13 +69,16 @@ class _SpeakButtonState extends State<SpeakButton> {
                     }
                   }
                 },
-                onTapUp: (_) {
+                onTapUp: (_) async {
                   setState(() {
                     isListening = false;
                   });
 
-                  widget.onFinishTalking();
-                  _speechToText.stop();
+                  await _speechToText.stop();
+
+                  Future.delayed(const Duration(seconds: 1), () {
+                    widget.onFinishTalking();
+                  });
                 },
                 child: CircleAvatar(
                   radius: _internalRadius,

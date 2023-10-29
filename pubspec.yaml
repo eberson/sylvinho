@@ -21,6 +21,9 @@ dependencies:
   flutter_tts: ^3.8.3
   avatar_glow: ^2.0.2
   intl: ^0.18.1
+  flutter_dotenv: ^5.1.0
+  http: ^1.1.0
+  chat_gpt_sdk: ^2.2.5
 
 dev_dependencies:
   flutter_test:
@@ -31,5 +34,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - .env
     - assets/lottie/
     - assets/images/

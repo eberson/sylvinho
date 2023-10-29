@@ -1,6 +1,4 @@
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 
 class ChatButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -15,13 +13,10 @@ class ChatButton extends StatefulWidget {
 }
 
 const _externalSize = 100.0;
-const _externalRadius = 50.0;
 const _internalSize = 60.0;
 const _internalRadius = 30.0;
 
 class _ChatButtonState extends State<ChatButton> {
-  final _speechToText = SpeechToText();
-
   var isListening = false;
 
   @override

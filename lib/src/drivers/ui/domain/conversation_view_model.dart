@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:sylvinho/src/application/usecases/ask_question_use_case.dart';
-import 'package:sylvinho/src/enterprise/entities/assistent_message.dart';
+import 'package:sylvinho/src/enterprise/entities/assistant_message.dart';
 import 'package:sylvinho/src/enterprise/entities/message.dart';
 import 'package:sylvinho/src/enterprise/entities/user_message.dart';
 
@@ -42,8 +42,11 @@ class ConversationViewModel extends ChangeNotifier {
   }
 
   Future<AssistantMessage> _callAssistant(String content) async {
-    final assistantResponse = await _askQuestionUseCase.ask(content);
-    final message = AssistantMessage.fromContent(assistantResponse);
+    final response = await _askQuestionUseCase.ask(content);
+
+    print(response.message);
+
+    final message = AssistantMessage.fromContent(response.message);
 
     messages.add(message);
     lastAssistantMessage = message;

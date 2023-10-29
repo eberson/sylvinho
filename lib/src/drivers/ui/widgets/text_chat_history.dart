@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sylvinho/src/drivers/ui/domain/conversation_view_model.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/assistant_message_view.dart';
 import 'package:sylvinho/src/drivers/ui/widgets/user_message_view.dart';
-import 'package:sylvinho/src/enterprise/entities/assistent_message.dart';
+import 'package:sylvinho/src/enterprise/entities/assistant_message.dart';
 import 'package:sylvinho/src/enterprise/entities/user_message.dart';
 
 class TextChatHistory extends StatelessWidget {

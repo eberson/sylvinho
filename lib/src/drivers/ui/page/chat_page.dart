@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
@@ -144,9 +145,20 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Spea
                 children: [
                   SpeakButton(
                     onSpeechResult: (result) => setState(() {
+                      log("result.recognizedWords: ${result.recognizedWords}");
                       _text = result.recognizedWords;
                     }),
-                    onFinishTalking: () => viewModel.talk(_text).then((value) => systemSpeak(value)),
+                    onFinishTalking: (){
+                      log("_text: $_text");
+
+                      if (_text.isNotEmpty){
+                        viewModel.talk(_text).then((value) => systemSpeak(value));
+
+                        setState(() {
+                          _text = "";
+                        });
+                      }
+                    },
                     allowInteraction: _allowInteraction,
                   ),
                 ],

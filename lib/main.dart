@@ -10,8 +10,8 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   Storage.setup();
-  Question.setup();
   Repositories.setup();
+  Question.setup();
   UseCases.setup();
 
   runApp(const Application());

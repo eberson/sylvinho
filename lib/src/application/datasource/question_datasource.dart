@@ -1,3 +1,5 @@
+import 'package:sylvinho/src/enterprise/entities/chat_event.dart';
+
 abstract class QuestionDatasource {
-  Future<String> askQuestion(String question);
+  Future<ChatEvent> askQuestion(String question);
 }
