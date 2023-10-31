@@ -159,7 +159,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin, Spea
                         });
                       }
                     },
-                    allowInteraction: _allowInteraction,
+                    allowInteraction: true,
                   ),
                 ],
               ),

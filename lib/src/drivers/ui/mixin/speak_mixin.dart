@@ -17,7 +17,7 @@ mixin Speaker {
       await _tts.setSharedInstance(true);
     }
 
-    await _tts.setSpeechRate(0.7);
+    await _tts.setSpeechRate(1.0);
     await _tts.setLanguage("pt-BR");
     await _tts.setVolume(1.0);
     await _tts.setPitch(0.8);

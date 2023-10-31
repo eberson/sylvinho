@@ -7,7 +7,12 @@ import 'package:sylvinho/src/enterprise/entities/assistant_message.dart';
 import 'package:sylvinho/src/enterprise/entities/user_message.dart';
 
 class TextChatHistory extends StatelessWidget {
-  const TextChatHistory({super.key});
+  final ScrollController controller;
+
+  const TextChatHistory({
+    super.key,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +22,7 @@ class TextChatHistory extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(6),
       child: ListView.builder(
+        controller: controller,
         padding: const EdgeInsets.only(right: 18),
         itemCount: messages.length,
         itemBuilder: (context, index) {

@@ -15,6 +15,7 @@ class TextChatView extends StatefulWidget {
 
 class _TextChatViewState extends State<TextChatView> with Speaker {
   final textController = TextEditingController();
+  final scrollController = ScrollController();
 
   var text = "";
 
@@ -26,7 +27,17 @@ class _TextChatViewState extends State<TextChatView> with Speaker {
   void initState() {
     super.initState();
 
-    initSpeaker();
+    withCompletionHandler(() {
+      scrollDown();
+    }).initSpeaker();
+  }
+
+  void scrollDown() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   @override
@@ -46,7 +57,8 @@ class _TextChatViewState extends State<TextChatView> with Speaker {
                 Expanded(
                   child: TextField(
                     controller: textController,
-                    decoration: const InputDecoration(labelText: "Faça uma pergunta ou escreva algo"),
+                    decoration: const InputDecoration(
+                        labelText: "Faça uma pergunta ou escreva algo"),
                   ),
                 ),
                 Padding(
@@ -54,6 +66,8 @@ class _TextChatViewState extends State<TextChatView> with Speaker {
                   child: IconButton(
                     onPressed: () async {
                       systemSpeak(await viewModel.talk(textController.text));
+                      textController.text = "";
+                      scrollDown();
                     },
                     icon: Icon(
                       Icons.send,
@@ -64,8 +78,10 @@ class _TextChatViewState extends State<TextChatView> with Speaker {
               ],
             ),
           ),
-          const Expanded(
-            child: TextChatHistory(),
+          Expanded(
+            child: TextChatHistory(
+              controller: scrollController,
+            ),
           ),
         ],
       ),
